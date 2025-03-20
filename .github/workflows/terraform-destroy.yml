@@ -1,0 +1,27 @@
+name: '🌍 Destroy Terraform Automation'
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 🧩 HashiCorp - Setup Terraform
+        uses: hashicorp/setup-terraform@v2.0.0
+      
+      - uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+
+      
+      - name: 🏗️ Terraform 
+        id: init
+        run: |
+          cd terraform_project
+          terraform init
+          terraform destroy -auto-approve
+          
